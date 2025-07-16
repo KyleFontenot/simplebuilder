@@ -3,10 +3,8 @@
   "workspaces": {
     "": {
       "name": "simplerouter",
-      "dependencies": {
-        "@types/node": "^24.0.14",
-      },
       "devDependencies": {
+        "@types/node": "^24.0.14",
         "marked": "^16.0.0",
         "nanoid": "^5.1.5",
         "typescript": "^5.8.3",

@@ -1,9 +1,29 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "ESNext",
-    "moduleResolution": "node",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": [
+      "ES2022"
+    ],
+    "types": [
+      "node"
+    ],
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
-  }
+  },
+  "ts-node": {
+    "esm": true
+  },
+  "include": [
+    "*.ts",
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
+  "files": [
+    "build.ts"
+  ]
 }
