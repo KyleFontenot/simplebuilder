@@ -1,0 +1,19 @@
+{
+  "name": "simplerouter",
+  "version": "0.0.1",
+  "main": "build.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@types/node": "^24.0.14"
+  },
+  "devDependencies": {
+    "marked": "^16.0.0",
+    "nanoid": "^5.1.5",
+    "typescript": "^5.8.3"
+  }
+}
