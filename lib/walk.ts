@@ -1,37 +1,12 @@
-import { fileURLToPath } from 'node:url'
 import {readFileSync, readdirSync, lstatSync, copyFileSync, writeFileSync, mkdirSync, rmSync} from "node:fs"
-import {readFile } from "node:fs/promises"
 import {join, resolve, dirname} from "node:path"
-import { nanoid } from 'nanoid/non-secure'
 import * as marked from "marked"
+import { nanoid } from 'nanoid/non-secure'
 
-const root = import.meta.url
+import writeFileRecursive from "./pathutils/writeFile"
+import relative from "./pathutils/relative"
 
-const buildFolder = relative("./build/")
-
-export function relative(to: string, from?:string) {
-  return fileURLToPath(new URL(to, from ?? import.meta.url)) 
-}
-
-function constructBaseHTML(){
-  try {
-    return readFileSync(relative("./src/template.html"), "utf-8")
-  }
-  catch(e){
-    console.error(e)
-    process.exit(1)
-  }
-}
-
-function writeFileSyncRecursive(filePath: string , data : string, options = {}) {
-  // Create directory structure
-  mkdirSync(dirname(filePath), { recursive: true });
-  
-  // Write the file
-  writeFileSync(filePath, data, options);
-}
-
- function walkStructure(template: string){
+export default function walkStructure(template: string, buildFolder: string){
   rmSync(buildFolder, { recursive: true });
 
   const startpoint = "./src/routes/"
@@ -68,7 +43,7 @@ function writeFileSyncRecursive(filePath: string , data : string, options = {}) 
                 
                   const injected = template.replace(/%body%/g, contentHtml)
                   try{
-                    writeFileSyncRecursive(join(buildFolder, pathname, 'index.html'), injected)
+                    writeFileRecursive(join(buildFolder, pathname, 'index.html'), injected)
                     console.log(`Route made: ${pathname}`)
                   }
                   catch(e){
@@ -85,7 +60,7 @@ function writeFileSyncRecursive(filePath: string , data : string, options = {}) 
                 if(file.startsWith("+")){
                     const mdParsed = await marked.parse(contentMd);
                     const injected = template.replace(/%body%/g, mdParsed)
-                    writeFileSyncRecursive(join(buildFolder, pathname, 'index.html'), injected)
+                    writeFileRecursive(join(buildFolder, pathname, 'index.html'), injected)
                   }
                   else {
                     // write to WebComponent
@@ -117,12 +92,3 @@ function writeFileSyncRecursive(filePath: string , data : string, options = {}) 
 
   const filesInDir = beginWalk(startpoint);
 }
-
-async function build(){
- const template = constructBaseHTML();
- mkdirSync(buildFolder, { recursive: true });
-  walkStructure(template)
-  console.log("Done")
-}
-
-await build()

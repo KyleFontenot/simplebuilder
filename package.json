@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "author": "",
   "type": "module",
-  "main": "build.js",
+  "main": "./lib/index.js",
   "devDependencies": {
     "@types/node": "^24.0.14",
     "marked": "^16.0.0",

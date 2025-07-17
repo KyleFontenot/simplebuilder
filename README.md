@@ -6,4 +6,5 @@
 4. `npm install` 
 5. `npm run build`
 
-Then your build application of static html files are in the `build` folder. You can simply upload that `build` folder to your hosting platform, or you can automate this process in platforms like Cloudflare by linking it to the git repositry so it rebuilds on every commit. 
+Then your build application of static html files are in the `build` folder. You can simply upload that `build` folder to your hosting platform, or you can automate this process in platforms like Cloudflare by linking your fork of this so that it rebuilds on every commit. 
+
